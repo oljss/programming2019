@@ -1,0 +1,68 @@
+import random
+def main():
+
+    """
+    Part One
+    """
+
+    wordList = ["barnacle", "cup", "mitochondria", "stegosaurus", "doorknob", "fridge"]
+    pick = random.choice(wordList)
+
+    s=list(pick)
+    
+    #word shuffler – swaps letters with random ones in the old string
+
+    for index in range(0,len(pick)):
+        a = s[index] 
+        b = random.randrange(0,len(pick))
+        
+        s[index] = s[b] #switches the letters
+        s[b] = a #switches the letters
+
+
+    print("".join(s))
+    choice = input("Please enter your guess: ")
+
+    counter = 0
+    while choice != pick: #sends them back
+        choice = input("Try again: ")
+        counter += 1
+    
+    print("You guessed correct!")
+
+    """
+    Part Two
+    """
+    message = input("Enter a secret message: ")
+    numberInput = int(input("Enter a number to shift by (0-25): "))
+    print("Encrypting message...")
+    
+    #encryption
+    encrypted = ""
+    for index in range(0,len(message)):
+        if message[index].isalpha():
+            a = chr(ord(message[index])+numberInput) #add letter by x in asc11 table
+            encrypted+=a
+        else:
+            encrypted +=message[index]
+
+
+    print("\t zencrypted message: ","".join(encrypted))
+    print("Decrypting message...")
+
+    #decryption
+    
+    decrypted = ""
+    for index in range(0,len(encrypted)):
+        if encrypted[index].isalpha():
+            a = chr(ord(encrypted[index])-numberInput) #same as above
+            decrypted+=a
+        else:
+            decrypted += message[index]
+    
+    print("\t Decrypted message: ","".join(decrypted))
+    print("\t Original message: ", message)
+    
+
+
+main()
